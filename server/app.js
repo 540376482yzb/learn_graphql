@@ -8,7 +8,10 @@ const usersRouter = require('./routes/users');
 
 // import graphqlHTTP middleware and schema
 const graphqlHTTP = require('express-graphql')
-const schema = require('./schema/schema')
+const { schema } = require('./schema/mutation')
+
+//import mongoose
+const mongoose = require('mongoose')
 
 const app = express();
 app.use(logger('dev'));
@@ -34,8 +37,11 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
+
 app.listen(8080, () => {
   console.log('now listening for request on port 8080')
+  mongoose.connect("mongodb://zhy0319:zhy0319@ds147890.mlab.com:47890/graphql1")
+    .then(() => console.log('connect to mongodb'))
 })
 
 module.exports = app;
